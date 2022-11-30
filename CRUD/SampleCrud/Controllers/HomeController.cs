@@ -35,7 +35,6 @@ namespace SampleCrud.Controllers
 
             return Ok();
         }
-
         public async Task<IActionResult> GetProduct()
         {
             var productId = 1;
