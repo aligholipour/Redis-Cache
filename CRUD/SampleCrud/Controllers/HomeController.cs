@@ -46,6 +46,15 @@ namespace SampleCrud.Controllers
             return Ok();
         }
 
+        public async Task<IActionResult> DeleteProduct()
+        {
+            var productId = 1;
+
+            await _cache.RemoveAsync("Product_" + productId);
+
+            return Ok();
+        }
+
         public IActionResult Privacy()
         {
             return View();
