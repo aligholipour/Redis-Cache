@@ -46,6 +46,25 @@ namespace SampleCrud.Controllers
             return Ok();
         }
 
+        public async Task<IActionResult> UpdateProduct()
+        {
+            var productId = 1;
+
+            await _cache.RemoveAsync("Product_" + productId);
+
+            var options = new DistributedCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1),
+                SlidingExpiration = TimeSpan.FromMinutes(10),
+            };
+
+            var product = new ProductModel { Id = 1, Name = "Laptop 2", Price = 100, Quantity = 2 };
+
+            await _cache.SetStringAsync("Product_" + product.Id, JsonSerializer.Serialize(product), options);
+
+            return Ok();
+        }
+
         public async Task<IActionResult> DeleteProduct()
         {
             var productId = 1;
